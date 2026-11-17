@@ -1,0 +1,272 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #F8F5F0;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 50;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar.collapsed {
+  width: 72px;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  min-height: 72px;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: hidden;
+}
+
+.brandName {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.375rem;
+  color: white;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.brandSub {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+}
+
+/* Collapse Button */
+.collapseBtn {
+  position: absolute;
+  top: 1.25rem;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid var(--text-dark);
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+.collapseBtn:hover { background: var(--gold-dark); }
+
+/* Alert */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.875rem 1rem;
+  padding: 0.625rem 0.875rem;
+  background: rgba(232, 160, 32, 0.12);
+  border: 1px solid rgba(232, 160, 32, 0.25);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  color: rgba(232, 160, 32, 0.9);
+  font-weight: 500;
+}
+
+/* Nav */
+.nav {
+  flex: 1;
+  padding: 0.75rem 0.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+}
+
+.navItem:hover {
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.9);
+}
+
+.navActive {
+  background: rgba(201, 168, 76, 0.15) !important;
+  color: var(--gold-light) !important;
+  border-left: 2px solid var(--gold);
+}
+
+.navIcon {
+  position: relative;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navBadge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--status-pending);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLabel {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Sidebar Footer */
+.sidebarFooter {
+  padding: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.navFooterItem {
+  color: rgba(255,255,255,0.4) !important;
+  font-size: 0.875rem !important;
+}
+
+.navFooterItem:hover {
+  color: rgba(255,255,255,0.7) !important;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  margin-left: 260px;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+}
+
+.sidebar.collapsed ~ .main {
+  margin-left: 72px;
+}
+
+/* This won't work in CSS modules because main is in same component.
+   Instead we handle via JS, but let's set it as a class approach */
+
+.content {
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: 64px;
+    right: 0;
+    bottom: auto;
+    flex-direction: row;
+    overflow: visible;
+  }
+
+  .sidebar.collapsed {
+    width: 100%;
+  }
+
+  .brand {
+    width: 64px;
+    min-height: 64px;
+    padding: 0;
+    justify-content: center;
+    border-bottom: none;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .brandText,
+  .alert,
+  .collapseBtn,
+  .navLabel,
+  .sidebarFooter {
+    display: none;
+  }
+
+  .nav {
+    min-width: 0;
+    padding: 0 0.5rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navItem {
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    justify-content: center;
+    border-left: none;
+    flex-shrink: 0;
+  }
+
+  .navActive {
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .main,
+  .sidebar.collapsed ~ .main {
+    margin-left: 0;
+    padding-top: 64px;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}

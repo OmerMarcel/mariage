@@ -1,0 +1,406 @@
+import { Wedding, Category, Album, Media, Guest, Invitation, DashboardStats } from '@/lib/types';
+
+const weddingImages = {
+  hero: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=85',
+  ceremony: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85',
+  couple: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=85',
+  family: 'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=1200&q=85',
+  guests: 'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=85',
+  reception: 'https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1200&q=85',
+  cake: 'https://images.unsplash.com/photo-1557308536-ee471ef2c390?auto=format&fit=crop&w=1200&q=85',
+  party: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=85',
+  preparation: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=85',
+  rings: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=85',
+  dance: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',
+  bouquet: 'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=85',
+} as const;
+
+// ===== WEDDING INFO =====
+export const weddingData: Wedding = {
+  id: '1',
+  groomName: 'Théo',
+  brideName: 'Amara',
+  weddingDate: '2026-06-14',
+  weddingTime: '14h30',
+  venue: 'Château de Versailles',
+  city: 'Versailles',
+  country: 'France',
+  coverPhotoUrl: '/images/wedding-couple.png',
+  loveMessage: 'Deux âmes qui se sont trouvées, deux cœurs qui ne font plus qu\'un. Bienvenue dans notre histoire d\'amour.',
+  mode: 'hybride',
+};
+
+// ===== CATEGORIES =====
+export const categoriesData: Category[] = [
+  {
+    id: '1',
+    name: 'Église & Cérémonie',
+    slug: 'ceremonie',
+    description: 'Moments sacrés de la cérémonie',
+    coverPhotoUrl: weddingImages.ceremony,
+    order: 1,
+    visible: true,
+    mediaCount: 48,
+  },
+  {
+    id: '2',
+    name: 'Les Mariés',
+    slug: 'maries',
+    description: 'Portraits et séances photo des mariés',
+    coverPhotoUrl: weddingImages.couple,
+    order: 2,
+    visible: true,
+    mediaCount: 62,
+  },
+  {
+    id: '3',
+    name: 'Famille',
+    slug: 'famille',
+    description: 'Photos de famille et proches',
+    coverPhotoUrl: weddingImages.family,
+    order: 3,
+    visible: true,
+    mediaCount: 35,
+  },
+  {
+    id: '4',
+    name: 'Invités',
+    slug: 'invites',
+    description: 'Photos d\'invités et groupes',
+    coverPhotoUrl: weddingImages.guests,
+    order: 4,
+    visible: true,
+    mediaCount: 87,
+  },
+  {
+    id: '5',
+    name: 'Réception',
+    slug: 'reception',
+    description: 'Salle, décoration et repas',
+    coverPhotoUrl: weddingImages.reception,
+    order: 5,
+    visible: true,
+    mediaCount: 54,
+  },
+  {
+    id: '6',
+    name: 'Gâteau des Mariés',
+    slug: 'gateau',
+    description: 'Le gâteau et sa découpe',
+    coverPhotoUrl: weddingImages.cake,
+    order: 6,
+    visible: true,
+    mediaCount: 18,
+  },
+  {
+    id: '7',
+    name: 'Cortège',
+    slug: 'cortege',
+    description: 'Demoiselles et garçons d\'honneur',
+    coverPhotoUrl: weddingImages.couple,
+    order: 7,
+    visible: true,
+    mediaCount: 29,
+  },
+  {
+    id: '8',
+    name: 'Discours & Animations',
+    slug: 'discours',
+    description: 'Discours, surprises et jeux',
+    coverPhotoUrl: weddingImages.guests,
+    order: 8,
+    visible: true,
+    mediaCount: 22,
+  },
+  {
+    id: '9',
+    name: 'Soirée',
+    slug: 'soiree',
+    description: 'Danse, musique et moments spontanés',
+    coverPhotoUrl: weddingImages.party,
+    order: 9,
+    visible: true,
+    mediaCount: 73,
+  },
+  {
+    id: '10',
+    name: 'Coulisses',
+    slug: 'coulisses',
+    description: 'Préparatifs, maquillage et backstage',
+    coverPhotoUrl: weddingImages.preparation,
+    order: 10,
+    visible: true,
+    mediaCount: 41,
+  },
+  {
+    id: '11',
+    name: 'Souvenirs des Invités',
+    slug: 'souvenirs-invites',
+    description: 'Photos et vidéos envoyées par les invités',
+    coverPhotoUrl: weddingImages.dance,
+    order: 11,
+    visible: true,
+    mediaCount: 156,
+  },
+];
+
+// ===== ALBUMS =====
+export const albumsData: Album[] = [
+  { id: '1', name: 'Cérémonie religieuse', description: 'La messe et les vœux', categoryId: '1', mediaCount: 48, coverPhotoUrl: weddingImages.ceremony, createdAt: '2026-06-14' },
+  { id: '2', name: 'Séance photo officielle', categoryId: '2', mediaCount: 30, coverPhotoUrl: weddingImages.couple, createdAt: '2026-06-14' },
+  { id: '3', name: 'Cocktail & Vin d\'honneur', categoryId: '5', mediaCount: 25, coverPhotoUrl: weddingImages.reception, createdAt: '2026-06-14' },
+  { id: '4', name: 'Dîner de gala', categoryId: '5', mediaCount: 29, coverPhotoUrl: weddingImages.cake, createdAt: '2026-06-14' },
+  { id: '5', name: 'Première danse', categoryId: '9', mediaCount: 18, coverPhotoUrl: weddingImages.party, createdAt: '2026-06-14' },
+];
+
+// ===== PHOTOS (mock) =====
+const photoSizes = [
+  { width: 800, height: 600 },
+  { width: 600, height: 800 },
+  { width: 1200, height: 800 },
+  { width: 800, height: 1000 },
+  { width: 1000, height: 700 },
+];
+
+const photoTitles = ['Échange des vœux', 'Portrait des mariés', 'Joie en famille', 'Les amis réunis', 'Décoration de la réception', 'Le gâteau', 'Le cortège', 'Discours des témoins', 'Première danse', 'Préparatifs', 'Souvenir spontané', 'Détails de la journée'];
+const photoImageUrls = Object.values(weddingImages);
+
+export const photosData: Media[] = Array.from({ length: 40 }, (_, i) => {
+  const catIndex = i % 11;
+  const sizeIndex = i % 5;
+  const size = photoSizes[sizeIndex];
+  return {
+    id: `photo-${i + 1}`,
+    type: 'photo',
+    title: `${photoTitles[catIndex]} ${Math.floor(i / photoTitles.length) + 1}`,
+    originalUrl: photoImageUrls[i % photoImageUrls.length],
+    thumbnailUrl: photoImageUrls[i % photoImageUrls.length],
+    webUrl: photoImageUrls[i % photoImageUrls.length],
+    width: size.width,
+    height: size.height,
+    size: 3500000 + (i % 6) * 500000,
+    categoryId: categoriesData[catIndex].id,
+    status: 'approuve',
+    downloadAllowed: true,
+    createdAt: '2026-06-14',
+  };
+});
+
+// ===== VIDEOS (mock) =====
+export const videosData: Media[] = [
+  {
+    id: 'video-1',
+    type: 'video',
+    title: 'Entrée des mariés',
+    originalUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: weddingImages.ceremony,
+    webUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    duration: 180,
+    size: 150000000,
+    categoryId: '1',
+    status: 'approuve',
+    downloadAllowed: true,
+    createdAt: '2026-06-14',
+  },
+  {
+    id: 'video-2',
+    type: 'video',
+    title: 'Échange des vœux',
+    originalUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: weddingImages.ceremony,
+    webUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    duration: 420,
+    size: 350000000,
+    categoryId: '1',
+    status: 'approuve',
+    downloadAllowed: true,
+    createdAt: '2026-06-14',
+  },
+  {
+    id: 'video-3',
+    type: 'video',
+    title: 'Première danse',
+    originalUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: weddingImages.dance,
+    webUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    duration: 240,
+    size: 200000000,
+    categoryId: '9',
+    status: 'approuve',
+    downloadAllowed: true,
+    createdAt: '2026-06-14',
+  },
+  {
+    id: 'video-4',
+    type: 'video',
+    title: 'Discours du témoin',
+    originalUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: weddingImages.guests,
+    webUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    duration: 300,
+    size: 250000000,
+    categoryId: '8',
+    status: 'approuve',
+    downloadAllowed: true,
+    createdAt: '2026-06-14',
+  },
+  {
+    id: 'video-5',
+    type: 'video',
+    title: 'Découpe du gâteau',
+    originalUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: weddingImages.cake,
+    webUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    duration: 120,
+    size: 100000000,
+    categoryId: '6',
+    status: 'approuve',
+    downloadAllowed: true,
+    createdAt: '2026-06-14',
+  },
+  {
+    id: 'video-6',
+    type: 'video',
+    title: 'Lancer du bouquet',
+    originalUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: weddingImages.party,
+    webUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    duration: 90,
+    size: 80000000,
+    categoryId: '9',
+    status: 'approuve',
+    downloadAllowed: true,
+    createdAt: '2026-06-14',
+  },
+];
+
+// ===== PENDING MEDIAS (guest uploads) =====
+export const pendingMediasData: Media[] = [
+  {
+    id: 'pending-1',
+    type: 'photo',
+    title: 'Selfie groupe d\'amis',
+    originalUrl: weddingImages.guests,
+    thumbnailUrl: weddingImages.guests,
+    webUrl: weddingImages.guests,
+    size: 3500000,
+    uploadedBy: 'Marie Dupont',
+    guestMessage: 'Trop belle soirée ! Merci pour cette merveilleuse fête !',
+    categoryId: '4',
+    status: 'en_attente',
+    downloadAllowed: false,
+    createdAt: '2026-06-14',
+  },
+  {
+    id: 'pending-2',
+    type: 'photo',
+    title: 'Photo cérémonie',
+    originalUrl: weddingImages.ceremony,
+    thumbnailUrl: weddingImages.ceremony,
+    webUrl: weddingImages.ceremony,
+    size: 4200000,
+    uploadedBy: 'Pierre Martin',
+    categoryId: '1',
+    status: 'en_attente',
+    downloadAllowed: false,
+    createdAt: '2026-06-14',
+  },
+  {
+    id: 'pending-3',
+    type: 'video',
+    title: 'Vidéo danse',
+    originalUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumbnailUrl: weddingImages.party,
+    webUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    duration: 45,
+    size: 45000000,
+    uploadedBy: 'Sophie Bernard',
+    guestMessage: 'Super ambiance !',
+    categoryId: '9',
+    status: 'en_attente',
+    downloadAllowed: false,
+    createdAt: '2026-06-14',
+  },
+];
+
+// ===== GUESTS =====
+export const guestsData: Guest[] = [
+  { id: '1', firstName: 'Marie', lastName: 'Dupont', email: 'marie@example.com', group: 'Amis de la mariée', invitationStatus: 'attending', uploadAllowed: true, downloadAllowed: true, active: true, createdAt: '2026-05-01' },
+  { id: '2', firstName: 'Pierre', lastName: 'Martin', email: 'pierre@example.com', phone: '+33612345678', group: 'Famille du marié', invitationStatus: 'attending', uploadAllowed: true, downloadAllowed: true, active: true, createdAt: '2026-05-01' },
+  { id: '3', firstName: 'Sophie', lastName: 'Bernard', email: 'sophie@example.com', group: 'Collègues', invitationStatus: 'attending', uploadAllowed: true, downloadAllowed: false, active: true, createdAt: '2026-05-01' },
+  { id: '4', firstName: 'Lucas', lastName: 'Petit', email: 'lucas@example.com', group: 'Amis du marié', invitationStatus: 'declined', uploadAllowed: false, downloadAllowed: false, active: true, createdAt: '2026-05-01' },
+  { id: '5', firstName: 'Emma', lastName: 'Leroy', email: 'emma@example.com', group: 'Famille de la mariée', invitationStatus: 'pending', uploadAllowed: true, downloadAllowed: true, active: true, createdAt: '2026-05-01' },
+];
+
+// ===== INVITATION =====
+export const invitationData: Invitation = {
+  id: '1',
+  title: 'Invitation Mariage Amara & Théo',
+  groomName: 'Théo',
+  brideName: 'Amara',
+  date: '14 Juin 2026',
+  time: '14h30',
+  venue: 'Château de Versailles',
+  address: 'Place d\'Armes, 78000 Versailles',
+  city: 'Versailles',
+  invitationText: 'Nous avons l\'immense joie de vous convier à la célébration de notre union. Votre présence à nos côtés sera le plus beau des cadeaux.',
+  program: `14h30 — Cérémonie religieuse\n16h00 — Vin d\'honneur & Photos\n19h00 — Dîner de gala\n22h00 — Soirée dansante`,
+  dressCode: 'Tenue de soirée — Couleurs ivoire et champagne bienvenues',
+  practicalInfo: 'Parking disponible sur place. Navettes depuis la gare de Versailles.',
+  coverPhotoUrl: weddingImages.couple,
+  uniqueLink: 'https://amara-theo.fr/invitation/abc123',
+  status: 'envoyee',
+  viewCount: 127,
+  createdAt: '2026-05-01',
+};
+
+// ===== DASHBOARD STATS =====
+export const dashboardStats: DashboardStats = {
+  totalPhotos: 428,
+  totalVideos: 24,
+  pendingMedias: 3,
+  totalGuests: 5,
+  totalAlbums: 5,
+  totalCategories: 11,
+  storageUsed: 12400,
+  recentUploads: [...pendingMediasData],
+};
+
+// ===== COUPLE STORY TIMELINE =====
+export const coupleStory = [
+  {
+    year: '2019',
+    title: 'Notre rencontre',
+    description: 'Un soir de novembre, lors d\'une soirée chez des amis communs, nos regards se sont croisés. Ce fut le début de tout.',
+    emoji: '💫',
+    imageUrl: weddingImages.guests,
+  },
+  {
+    year: '2020',
+    title: 'Premier voyage ensemble',
+    description: 'Florence, Italie. Les rues pavées, le tramonto sur l\'Arno et la certitude que nous voulions tout vivre ensemble.',
+    emoji: '✈️',
+    imageUrl: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=85',
+  },
+  {
+    year: '2022',
+    title: 'Notre emménagement',
+    description: 'Nous avons posé nos valises dans notre appartement parisien. Notre chez-nous, notre nid, notre aventure partagée.',
+    emoji: '🏠',
+    imageUrl: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=600&q=85',
+  },
+  {
+    year: '2025',
+    title: 'La demande en mariage',
+    description: 'À Santorini, au coucher du soleil, Théo a posé un genou à terre. Amara a dit oui, les yeux brillants de larmes de joie.',
+    emoji: '💍',
+    imageUrl: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=600&q=85',
+  },
+  {
+    year: '2026',
+    title: 'Notre mariage',
+    description: 'Le 14 juin 2026, devant nos familles et nos amis réunis, nous prononçons notre oui pour l\'éternité.',
+    emoji: '💒',
+    imageUrl: weddingImages.hero,
+  },
+];

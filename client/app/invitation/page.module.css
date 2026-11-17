@@ -1,0 +1,478 @@
+.page {
+  padding-top: 80px;
+  min-height: 100vh;
+  background: var(--ivory);
+}
+
+.pageHeader {
+  text-align: center;
+  padding: 4rem 1.5rem 2.5rem;
+  background: linear-gradient(180deg, var(--champagne) 0%, var(--ivory) 100%);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2.5rem;
+  padding: 3rem 1.5rem 0;
+  align-items: start;
+}
+
+/* ===== INVITATION CARD ===== */
+.cardWrap {
+  perspective: 1000px;
+}
+
+.card {
+  background: white;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  animation: revealCard 0.8s ease;
+}
+
+@keyframes revealCard {
+  from { opacity: 0; transform: translateY(30px) rotateX(5deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+}
+
+/* Card Image */
+.cardImage {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+}
+
+.cardImg { object-fit: cover; }
+
+.cardImgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.2) 0%,
+    rgba(0,0,0,0.6) 100%
+  );
+}
+
+.cardImageContent {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+}
+
+.cardPre {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cardNames {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cardNames span {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: white;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+  font-weight: 400;
+}
+
+.cardAmpersand {
+  font-family: var(--font-serif) !important;
+  font-size: clamp(1.5rem, 3vw, 2rem) !important;
+  color: var(--gold-light) !important;
+  font-style: italic;
+}
+
+/* Card Border */
+.cardBorderTop {
+  text-align: center;
+  padding: 1.25rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.5rem;
+  color: var(--gold);
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(180deg, var(--champagne), white);
+}
+
+/* Card Body */
+.cardBody {
+  padding: 2.5rem;
+}
+
+.inviteText {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--text-soft);
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Details */
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: var(--ivory);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.detailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.detailIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.detailLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.detailValue {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  display: block;
+}
+
+.detailSub {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* Dress Code */
+.dressCode {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.5rem;
+}
+
+.dressCode svg { flex-shrink: 0; margin-top: 0.2rem; }
+
+.dresCodeLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.dresCodeText {
+  font-size: 0.9375rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+/* Card Divider */
+.cardDivider {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+/* Program */
+.program {
+  margin-bottom: 2rem;
+}
+
+.programTitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.programItems { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.programItem {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.programDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Practical Info */
+.practicalInfo {
+  padding: 1.25rem 1.5rem;
+  background: var(--ivory);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--gold-light);
+  margin-bottom: 2rem;
+}
+
+.practicalTitle {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.practicalText { font-size: 0.9375rem; color: var(--text-soft); line-height: 1.7; }
+
+/* Signature */
+.signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.signatureText {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.signatureNames {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: var(--text-dark);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 100px;
+}
+
+.sideCard {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.sideCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+  color: var(--gold-dark);
+}
+
+.sideCardHeader h3 {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.sideCardDesc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+/* Share Buttons */
+.shareButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.shareBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  letter-spacing: 0.02em;
+}
+
+.whatsapp {
+  background: #25D366;
+  color: white;
+}
+.whatsapp:hover { background: #1fb855; transform: translateY(-1px); }
+
+.email {
+  background: var(--gold);
+  color: white;
+}
+.email:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+/* Link Box */
+.linkBox {
+  background: var(--ivory);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+}
+
+.linkLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.linkValue {
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  display: block;
+  word-break: break-all;
+  margin-bottom: 0.75rem;
+}
+
+.copyBtn {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--gold-dark);
+  cursor: pointer;
+  border: 1px solid var(--gold-light);
+  background: none;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+}
+.copyBtn:hover { background: var(--gold); color: white; border-color: transparent; }
+
+/* Map */
+.mapPreview {
+  position: relative;
+  height: 150px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.mapImg { object-fit: cover; }
+.mapOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.3);
+}
+.mapInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+.mapInfo strong { color: var(--text-dark); }
+.mapInfo span { color: var(--text-muted); }
+
+/* Stats Card */
+.statsCard {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.statRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9375rem;
+  color: var(--text-soft);
+}
+
+.statRow strong {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  color: var(--gold-dark);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .shareButtons { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .cardBody { padding: 1.5rem; }
+
+  .shareButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .signatureNames {
+    font-size: 1.75rem;
+  }
+  .cardNames span { font-size: 2rem !important; }
+}
