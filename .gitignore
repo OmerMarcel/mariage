@@ -9,3 +9,5 @@ dist/
 
 *.log
 firebase-debug.log
+*.tsbuildinfo
+

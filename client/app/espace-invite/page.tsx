@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { Upload, X, CheckCircle, Camera, Video, Heart, User, MessageSquare, ChevronDown } from 'lucide-react';
+import { Upload, X, CheckCircle, Camera, Video, Heart, User, MessageSquare } from 'lucide-react';
 import PublicLayout from '@/components/layout/PublicLayout';
 import { categoriesData } from '@/lib/data/mockData';
 import styles from './page.module.css';

@@ -42,7 +42,11 @@ export async function requireAdmin(
 
     request.user = { uid: decodedToken.uid, email: decodedToken.email };
     next();
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.code?.startsWith('auth/') || error?.message?.includes('token')) {
+      response.status(401).json({ error: 'Session invalide ou expirée.' });
+      return;
+    }
     next(error);
   }
 }

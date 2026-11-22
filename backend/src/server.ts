@@ -2,18 +2,34 @@ import 'dotenv/config';
 import cors from 'cors';
 import express, { ErrorRequestHandler } from 'express';
 import { getApps } from 'firebase-admin/app';
-import { getDatabase } from './config/firebase.js';
+import { initFirebase } from './config/firebase.js';
 import { adminRouter } from './routes/admin.js';
 import { publicRouter } from './routes/public.js';
 
+initFirebase();
+
 const app = express();
 const port = Number(process.env.PORT ?? 4000);
-const allowedOrigins = [process.env.CLIENT_ORIGIN, process.env.ADMIN_ORIGIN].filter(
-  (origin): origin is string => Boolean(origin),
-);
+const allowedOrigins = [process.env.CLIENT_ORIGIN, process.env.ADMIN_ORIGIN]
+  .flatMap((origins) => (origins ?? '').split(','))
+  .map((origin) => origin.trim().replace(/\/$/, ''))
+  .filter(Boolean);
 
 app.use(cors({
-  origin: allowedOrigins.length > 0 ? allowedOrigins : false,
+  origin: (origin, callback) => {
+    // Autorise les requêtes sans header origin (curl, health checks, appels serveurs)
+    if (!origin) return callback(null, true);
+    // Si aucune origine restreinte n'est définie, ou wildcard
+    if (allowedOrigins.length === 0 || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    // Tolère les sous-domaines Vercel (déploiements de preview et prod)
+    if (origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    return callback(new Error(`Origine CORS bloquée : ${origin}`));
+  },
+  credentials: true,
 }));
 app.use(express.json({ limit: '1mb' }));
 

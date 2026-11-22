@@ -2,6 +2,7 @@ services:
   - type: web
     name: mariage-backend
     runtime: node
+    plan: free
     rootDir: backend
     buildCommand: npm install && npm run build
     startCommand: npm start
@@ -9,6 +10,8 @@ services:
     envVars:
       - key: PORT
         value: 10000
+      - key: NODE_ENV
+        value: production
       - key: CLIENT_ORIGIN
         sync: false
       - key: ADMIN_ORIGIN

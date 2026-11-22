@@ -16,7 +16,7 @@ export default function AdminAuthGate({ children }: { children: React.ReactNode 
     if (pathname === '/login') return;
 
     try {
-      return onAuthStateChanged(getFirebaseAuth(), nextUser => {
+      return onAuthStateChanged(getFirebaseAuth(), (nextUser: User | null) => {
         setUser(nextUser);
         setIsLoading(false);
       });

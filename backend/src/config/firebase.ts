@@ -25,3 +25,13 @@ export function getDatabase(): Firestore {
   firestore = getFirestore(app);
   return firestore;
 }
+
+export function initFirebase(): boolean {
+  try {
+    getDatabase();
+    return true;
+  } catch (error) {
+    console.warn('[Firebase] Non initialisé au démarrage :', error instanceof Error ? error.message : error);
+    return false;
+  }
+}

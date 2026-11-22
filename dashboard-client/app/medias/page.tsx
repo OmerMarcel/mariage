@@ -39,7 +39,7 @@ function AdminMediasPageInner() {
     if (categoryFilter !== 'all' && media.categoryId !== categoryFilter) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      return (
+      return !!(
         media.title?.toLowerCase().includes(q) ||
         media.uploadedBy?.toLowerCase().includes(q) ||
         media.guestMessage?.toLowerCase().includes(q)

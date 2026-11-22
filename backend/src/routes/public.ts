@@ -42,23 +42,49 @@ publicRouter.get('/media', async (request, response, next) => {
   try {
     const type = request.query.type;
     const categoryId = request.query.categoryId;
-    let query = getDatabase()
-      .collection('media')
-      .where('status', '==', 'approuve')
-      .orderBy('createdAt', 'desc');
+    let data: Media[] = [];
 
-    if (type === 'photo' || type === 'video') {
-      query = query.where('type', '==', type);
-    }
-    if (typeof categoryId === 'string' && categoryId.length > 0) {
-      query = query.where('categoryId', '==', categoryId);
-    }
+    try {
+      let query = getDatabase()
+        .collection('media')
+        .where('status', '==', 'approuve')
+        .orderBy('createdAt', 'desc');
 
-    const snapshot = await query.limit(100).get();
-    const data = snapshot.docs.map(document => ({
-      id: document.id,
-      ...document.data(),
-    })) as Media[];
+      if (type === 'photo' || type === 'video') {
+        query = query.where('type', '==', type);
+      }
+      if (typeof categoryId === 'string' && categoryId.length > 0) {
+        query = query.where('categoryId', '==', categoryId);
+      }
+
+      const snapshot = await query.limit(100).get();
+      data = snapshot.docs.map(document => ({
+        id: document.id,
+        ...document.data(),
+      })) as Media[];
+    } catch (queryError) {
+      console.warn('Index composite manquant ou erreur requête, fallback en mémoire :', queryError);
+      // Fallback sans index composite : récupère les médias approuvés et trie/filtre en mémoire
+      const snapshot = await getDatabase()
+        .collection('media')
+        .where('status', '==', 'approuve')
+        .get();
+
+      let items = snapshot.docs.map(document => ({
+        id: document.id,
+        ...document.data(),
+      })) as Media[];
+
+      if (type === 'photo' || type === 'video') {
+        items = items.filter(m => m.type === type);
+      }
+      if (typeof categoryId === 'string' && categoryId.length > 0) {
+        items = items.filter(m => m.categoryId === categoryId);
+      }
+
+      items.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+      data = items.slice(0, 100);
+    }
 
     response.json({ data });
   } catch (error) {

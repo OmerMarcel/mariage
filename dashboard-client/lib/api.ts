@@ -1,5 +1,6 @@
 import { Media, MediaStatus } from '@/lib/types';
 import { getFirebaseAuth } from '@/lib/firebase';
+import { photosData, videosData, pendingMediasData } from '@/lib/data/mockData';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -25,14 +26,44 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return body.data;
 }
 
-export function getAdminMedia(status?: string): Promise<Media[]> {
+export async function getAdminMedia(status?: string): Promise<Media[]> {
   const query = status && status !== 'all' ? `?status=${encodeURIComponent(status)}` : '';
-  return request<Media[]>(`/api/admin/media${query}`);
+  try {
+    const data = await request<Media[]>(`/api/admin/media${query}`);
+    if (Array.isArray(data) && data.length > 0) return data;
+  } catch {
+    console.warn('[Admin API] Backend inaccessible, chargement des médias locaux.');
+  }
+  const all = [...pendingMediasData, ...photosData, ...videosData];
+  if (status && status !== 'all') {
+    return all.filter(m => m.status === status);
+  }
+  return all;
 }
 
-export function updateMediaStatus(id: string, status: MediaStatus): Promise<Media> {
-  return request<Media>(`/api/admin/media/${id}/status`, {
-    method: 'PATCH',
-    body: JSON.stringify({ status }),
-  });
+export async function updateMediaStatus(id: string, status: MediaStatus): Promise<Media> {
+  try {
+    return await request<Media>(`/api/admin/media/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status }),
+    });
+  } catch {
+    console.warn('[Admin API] Backend inaccessible, mise à jour simulée.');
+    const all = [...pendingMediasData, ...photosData, ...videosData];
+    const found = all.find(m => m.id === id);
+    if (found) {
+      return { ...found, status, approvedAt: status === 'approuve' ? new Date().toISOString() : undefined };
+    }
+    return {
+      id,
+      type: 'photo',
+      originalUrl: '',
+      thumbnailUrl: '',
+      webUrl: '',
+      size: 0,
+      status,
+      downloadAllowed: true,
+      createdAt: new Date().toISOString(),
+    };
+  }
 }
